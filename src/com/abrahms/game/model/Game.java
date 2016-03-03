@@ -1,6 +1,7 @@
 package com.abrahms.game.model;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
@@ -11,21 +12,68 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable {
 
-	boolean running = false;
+	private static final long	serialVersionUID	= 154847L;
+	private static final int	WIDTH				= 1024;
+	private static final int	HEIGHT				= WIDTH / 16 * 9;
+	private final String		GAME_NAME			= "Ex Life";
+	boolean						running				= false;
+
+	public Game() {
+
+		JFrame frame = new JFrame(GAME_NAME);
+		frame.setSize(new Dimension(WIDTH, HEIGHT));
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.setFocusable(true);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.out.println("Exiting Game...");
+				stop();
+				super.windowClosing(e);
+			}
+		});
+		frame.add(this);
+		frame.setVisible(true);
+		frame.requestFocus();
+	}
 
 	// starting the game
 	public void start() {
-		if (running)
-			return;
+		if (running) return;
 		running = true;
 		new Thread(this, "Ex-Life_Thread").start();
 	}
 
 	// Exiting the Application
 	public void stop() {
-		if (!running)
-			return;
+		if (!running) return;
 		running = false;
+	}
+
+	public void tick() {
+
+	}
+
+	public void render() {
+
+		Graphics g;
+		BufferStrategy bs = getBufferStrategy();
+		if (bs == null) {
+			createBufferStrategy(3);
+			return;
+		}
+		g = bs.getDrawGraphics();
+
+		// rendering Area 51 :P
+		////////////////////////////////////////////////////////////////////////////////////////////////
+		g.setColor(new Color(1, 5, 4));
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		////////////////////////////////////////////////////////////////////////////////////////////////
+
+		g.dispose();
+		bs.show();
+
 	}
 
 	public void run() {
@@ -49,8 +97,7 @@ public class Game extends Canvas implements Runnable {
 				unprocessed -= 1;
 				tps++;
 				canrender = true;
-			} else
-				canrender = false;
+			} else canrender = false;
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
@@ -69,49 +116,6 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		System.exit(0);
-	}
-
-	private static final long serialVersionUID = 154847L;
-	private static final int WIDTH = 1024;
-	private static final int HEIGHT = WIDTH / 16 * 9;
-	private final String GAME_NAME = "Ex Life";
-
-	public void tick() {
-
-	}
-
-	public void render() {
-		BufferStrategy bs = getBufferStrategy();
-		if (bs == null) {
-			createBufferStrategy(3);
-			return;
-		}
-
-		Graphics g = bs.getDrawGraphics();
-
-		g.dispose();
-		bs.show();
-
-	}
-
-	public Game() {
-
-		JFrame frame = new JFrame(GAME_NAME);
-		frame.setSize(new Dimension(WIDTH, HEIGHT));
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setFocusable(true);
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.out.println("Exiting Game...");
-				stop();
-				super.windowClosing(e);
-			}
-		});
-		frame.add(this);
-		frame.setVisible(true);
-		frame.requestFocus();
 	}
 
 }
