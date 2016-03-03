@@ -4,38 +4,35 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.color.ColorSpace;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import com.abrahms.game.view.View;
+
 public class Game extends Canvas implements Runnable {
-
-	private static final long	serialVersionUID	= 154847L;
-	private static final int	WIDTH				= 1024;
-	private static final int	HEIGHT				= WIDTH / 16 * 9;
-	private final String		GAME_NAME			= "Ex Life";
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= 1L;
 	boolean						running				= false;
+	private View				view;
+	private BufferedImage		img;
+	private Graphics			g;
+	private BufferStrategy		bs;
+	private Screen				screen;
+	private int[]				rendering_Pixels;
 
-	public Game() {
+	public Game(View view) {
+		this.view = view;
+		this.screen = new Screen(view.WIDTH, view.HEIGHT);
+		rendering_Pixels =((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 
-		JFrame frame = new JFrame(GAME_NAME);
-		frame.setSize(new Dimension(WIDTH, HEIGHT));
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-		frame.setFocusable(true);
-		frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				System.out.println("Exiting Game...");
-				stop();
-				super.windowClosing(e);
-			}
-		});
-		frame.add(this);
-		frame.setVisible(true);
-		frame.requestFocus();
 	}
 
 	// starting the game
@@ -56,9 +53,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void render() {
-
-		Graphics g;
-		BufferStrategy bs = getBufferStrategy();
+		bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
@@ -67,8 +62,8 @@ public class Game extends Canvas implements Runnable {
 
 		// rendering Area 51 :P
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		g.setColor(new Color(1, 5, 4));
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+
+		//		System.out.println("testing");
 		////////////////////////////////////////////////////////////////////////////////////////////////
 
 		g.dispose();
