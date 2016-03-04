@@ -1,25 +1,13 @@
 package com.abrahms.game.model;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.color.ColorSpace;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import javax.swing.JFrame;
-
 import com.abrahms.game.view.View;
 
-public class Game extends Canvas implements Runnable {
-	/**
-	 * 
-	 */
-	private static final long	serialVersionUID	= 1L;
+public class Game implements Runnable {
 	boolean						running				= false;
 	private View				view;
 	private BufferedImage		img;
@@ -31,8 +19,11 @@ public class Game extends Canvas implements Runnable {
 	public Game(View view) {
 		this.view = view;
 		this.screen = new Screen(view.WIDTH, view.HEIGHT);
-		rendering_Pixels =((DataBufferInt) img.getRaster().getDataBuffer()).getData();
-
+		this.img = new BufferedImage(view.WIDTH, view.HEIGHT, BufferedImage.TYPE_INT_BGR);
+		rendering_Pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
+		for (int i = 0; i < rendering_Pixels.length; i++) {
+			rendering_Pixels[i] = 0x000000;
+		}
 	}
 
 	// starting the game
@@ -53,16 +44,17 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void render() {
-		bs = getBufferStrategy();
+		bs = view.getBufferStrategy();
 		if (bs == null) {
-			createBufferStrategy(3);
+			view.createBufferStrategy(3);
 			return;
 		}
 		g = bs.getDrawGraphics();
 
 		// rendering Area 51 :P
 		////////////////////////////////////////////////////////////////////////////////////////////////
-
+		screen.renderScreen(rendering_Pixels);
+		g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null);
 		//		System.out.println("testing");
 		////////////////////////////////////////////////////////////////////////////////////////////////
 

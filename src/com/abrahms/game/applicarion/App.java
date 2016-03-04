@@ -8,7 +8,6 @@ public class App {
 	public static void main(String[] args) {
 		View view = new View("Ex Life");
 		Game game = new Game(view);
-		view.add(game);
 		game.start();
 		
 	}

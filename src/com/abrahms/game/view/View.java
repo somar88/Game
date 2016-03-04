@@ -15,13 +15,14 @@ public class View extends JFrame {
 	private static final long	serialVersionUID	= 1L;
 
 	public View(String title) {
+
+//		setUndecorated(true);
 		setTitle(title);
 		setSize(new Dimension(WIDTH, HEIGHT));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setFocusable(true);
 		setLocationRelativeTo(null);
-//		setUndecorated(true);
 		setVisible(true);
 		requestFocus();
 	}
