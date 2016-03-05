@@ -29,8 +29,8 @@ public class Game implements Runnable {
 		for (int i = 0; i < rendering_Pixels.length; i++) {
 			rendering_Pixels[i] = 0xFFFFFF;
 		}
-//		this.x = 0;
-//		this.y = 0;
+		//		this.x = 0;
+		//		this.y = 0;
 	}
 
 	// starting the game
@@ -47,7 +47,7 @@ public class Game implements Runnable {
 	}
 
 	public void tick() {
-		screen.screenRandomTick(x, y, view.WIDTH, view.HEIGHT);
+		screen.screenRandomTick(this.x, this.y);
 	}
 
 	public void render() {

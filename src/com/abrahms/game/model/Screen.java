@@ -9,7 +9,7 @@ public class Screen {
 	private int[]			pixels;
 	private int				screen_width;
 	private int				screen_height;
-	private Random			random;
+	private Random			random	= new Random();
 
 	public Screen(int width, int height) {
 		screen_width = width;
@@ -47,14 +47,14 @@ public class Screen {
 			arrayToReset[i] = 0xFFFFFF;
 		}
 	}
-	
-	// rendering random point on the screen 
-	public void screenRandomTick(int x, int y, int width, int height) {
 
-		if (x == width || x == 0) x = random.nextInt(width);
-		if (y == height || y == 0) y = random.nextInt(height);
-		if (x == width || x == 0) x = width;
-		if (y == height || y == 0) y = height;
+	// rendering random point on the screen 
+	public void screenRandomTick(int x, int y) {
+
+		//		if (x == width || x == 0) x = random.nextInt(width);
+		//		if (y == height || y == 0) y = random.nextInt(height);
+		if (x == screen_width || x == 0) x = screen_width;
+		if (y == screen_height || y == 0) y = screen_height;
 		int orientation = random.nextInt(4);
 		switch (orientation) {
 			case 0:
