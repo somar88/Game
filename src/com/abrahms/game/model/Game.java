@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.util.Random;
 
+import com.abrahms.game.model.gfx.Sprite;
 import com.abrahms.game.view.View;
 
 public class Game implements Runnable {
@@ -18,8 +19,8 @@ public class Game implements Runnable {
 	private int[]			rendering_Pixels;
 	int						x;
 	int						y;
-	private Random			random	= new Random();
 
+	// Constructor 
 	public Game(View view) {
 		this.view = view;
 		this.screen = new Screen(view.WIDTH, view.HEIGHT);
@@ -28,8 +29,8 @@ public class Game implements Runnable {
 		for (int i = 0; i < rendering_Pixels.length; i++) {
 			rendering_Pixels[i] = 0xFFFFFF;
 		}
-		x = 0;
-		y = 0;
+//		this.x = 0;
+//		this.y = 0;
 	}
 
 	// starting the game
@@ -46,29 +47,7 @@ public class Game implements Runnable {
 	}
 
 	public void tick() {
-		if (x == view.WIDTH || x == 0) x = random.nextInt(view.WIDTH);
-		if (y == view.HEIGHT || y == 0) y = random.nextInt(view.HEIGHT);
-		int orientaion = random.nextInt(4);
-		switch (orientaion) {
-			case 0:
-				screen.tickScreen(this.x++, this.y++);
-			break;
-
-			case 1:
-				screen.tickScreen(this.x--, this.y++);
-			break;
-
-			case 2:
-				screen.tickScreen(this.x++, this.y--);
-			break;
-			case 3:
-				screen.tickScreen(this.x--, this.y--);
-			break;
-
-			default:
-			break;
-		}
-
+		screen.screenRandomTick(x, y, view.WIDTH, view.HEIGHT);
 	}
 
 	public void render() {
@@ -78,12 +57,11 @@ public class Game implements Runnable {
 			return;
 		}
 		g = bs.getDrawGraphics();
-
 		// rendering Area 51 :P
 		////////////////////////////////////////////////////////////////////////////////////////////////
 		screen.renderScreen(rendering_Pixels);
+		//		rendering_Pixels[20480] = 0xFFFFFF;
 		g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null);
-		screen.resetArray(rendering_Pixels);
 		//		System.out.println("testing");
 		////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -94,7 +72,7 @@ public class Game implements Runnable {
 
 	public void run() {
 		// target is our Target of how many ticks in a second
-		double target = 1000.0d;
+		double target = 60.0d;
 		double nanoSecondPerTick = 1000_000_000.0d / target;
 		long startCheck = System.nanoTime();
 		// timer will be used for fps and tps printing to the console
@@ -130,7 +108,6 @@ public class Game implements Runnable {
 				tps = 0;
 			}
 		}
-
 		System.exit(0);
 	}
 

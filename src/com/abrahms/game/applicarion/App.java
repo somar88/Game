@@ -9,7 +9,6 @@ public class App {
 		View view = new View("Ex Life");
 		Game game = new Game(view);
 		game.start();
-		
 	}
 
 }
