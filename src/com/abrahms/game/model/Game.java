@@ -5,7 +5,6 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.util.Random;
-
 import com.abrahms.game.model.gfx.Sprite;
 import com.abrahms.game.view.View;
 
@@ -15,6 +14,7 @@ public class Game implements Runnable {
 	private BufferedImage	img;
 	private Graphics		g;
 	private BufferStrategy	bs;
+	private Random			random	= new Random();
 	private Screen			screen;
 	private int[]			rendering_Pixels;
 	int						x;
@@ -47,7 +47,7 @@ public class Game implements Runnable {
 	}
 
 	public void tick() {
-		screen.screenRandomTick(this.x, this.y);
+//		rendomPoint();
 	}
 
 	public void render() {
@@ -64,10 +64,8 @@ public class Game implements Runnable {
 		g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null);
 		//		System.out.println("testing");
 		////////////////////////////////////////////////////////////////////////////////////////////////
-
 		g.dispose();
 		bs.show();
-
 	}
 
 	public void run() {
@@ -75,7 +73,7 @@ public class Game implements Runnable {
 		double target = 60.0d;
 		double nanoSecondPerTick = 1000_000_000.0d / target;
 		long startCheck = System.nanoTime();
-		// timer will be used for fps and tps printing to the console
+		// timer will be used for FPS and TPS printing to the console
 		long timer = System.currentTimeMillis();
 		double unprocessed = 0.0d;
 		int fps = 0;
@@ -111,4 +109,32 @@ public class Game implements Runnable {
 		System.exit(0);
 	}
 
+	private void rendomPoint() {
+		
+		// rendering random point on the screen 
+		//		if (x == view.WIDTH || x == 0) x = random.nextInt(view.WIDTH);
+		//		if (y == view.HEIGHT || y == 0) y = random.nextInt(view.HEIGHT);
+		if (x == view.WIDTH || x == 0) x = view.WIDTH / 2;
+		if (y == view.HEIGHT || y == 0) y = view.HEIGHT / 2;
+		int orientation = random.nextInt(4);
+		switch (orientation) {
+			case 0:
+				screen.tickScreen(x++, y++);
+			break;
+
+			case 1:
+				screen.tickScreen(x--, y++);
+			break;
+
+			case 2:
+				screen.tickScreen(x++, y--);
+			break;
+			case 3:
+				screen.tickScreen(x--, y--);
+			break;
+
+			default:
+			break;
+		}
+	}
 }

@@ -33,12 +33,10 @@ public class Sprite {
 	}
 
 	public void s_Render(int[] rendering_Pixels, View view) {
-
 		for (int i = 0; i < this.s_Width; i++) {
 			for (int j = 0; j < this.s_Height; j++) {
 				rendering_Pixels[i + j * view.WIDTH] = this.s_pixels[i + j * this.s_Width];
 			}
-
 		}
 	}
 

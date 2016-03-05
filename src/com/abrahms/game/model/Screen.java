@@ -39,41 +39,12 @@ public class Screen {
 		for (int i = 0; i < rendering_Pixels.length; i++) {
 			rendering_Pixels[i] = pixels[i];
 		}
-		resetArray(pixels);
+				resetArray(pixels);
 	}
 
 	public void resetArray(int[] arrayToReset) {
 		for (int i = 0; i < arrayToReset.length; i++) {
-			arrayToReset[i] = 0xFFFFFF;
-		}
-	}
-
-	// rendering random point on the screen 
-	public void screenRandomTick(int x, int y) {
-
-		//		if (x == width || x == 0) x = random.nextInt(width);
-		//		if (y == height || y == 0) y = random.nextInt(height);
-		if (x == screen_width || x == 0) x = screen_width;
-		if (y == screen_height || y == 0) y = screen_height;
-		int orientation = random.nextInt(4);
-		switch (orientation) {
-			case 0:
-				tickScreen(x++, y++);
-			break;
-
-			case 1:
-				tickScreen(x--, y++);
-			break;
-
-			case 2:
-				tickScreen(x++, y--);
-			break;
-			case 3:
-				tickScreen(x--, y--);
-			break;
-
-			default:
-			break;
+			arrayToReset[i] = 0x000000;
 		}
 	}
 }
