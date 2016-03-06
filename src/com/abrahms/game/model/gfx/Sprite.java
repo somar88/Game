@@ -1,10 +1,8 @@
 package com.abrahms.game.model.gfx;
 
-import com.abrahms.game.view.View;
-
 public class Sprite {
 
-	public static final Sprite	TEST_SPRITE	= new Sprite(SpriteSheet.SS_DEFAULT, 32, 32, 0, 0);
+	public static final Sprite	TEST_SPRITE	= new Sprite(SpriteSheet.FOREST_TILES, 32, 32, 0, 12);
 
 	public int					s_Width;
 	public int					s_Height;
@@ -23,6 +21,14 @@ public class Sprite {
 	}
 
 	private void spriteLoad(SpriteSheet ss, int x_Pos, int y_Pos) {
+		if (x_Pos > (ss.getSs_Width() / this.s_Width)) {
+			x_Pos = 0;
+			System.out.println("x is out of bound");
+		}
+		if (y_Pos > (ss.getSs_Height() / this.s_Height)) {
+			y_Pos = 0;
+			System.out.println("y is out of bound ");
+		}
 		for (int x = 0; x < s_Width; x++) {
 			for (int y = 0; y < s_Height; y++) {
 				s_pixels[x + y * s_Width] = ss.ss_Pixels[((x_Pos * s_Width) + x)
@@ -32,10 +38,10 @@ public class Sprite {
 		this.s_isLoaded = true;
 	}
 
-	public void s_Render(int[] rendering_Pixels, View view) {
+	public void s_Render(int[] rendering_Pixels, int width) {
 		for (int i = 0; i < this.s_Width; i++) {
 			for (int j = 0; j < this.s_Height; j++) {
-				rendering_Pixels[i + j * view.WIDTH] = this.s_pixels[i + j * this.s_Width];
+				rendering_Pixels[i + j * width] = this.s_pixels[i + j * this.s_Width];
 			}
 		}
 	}

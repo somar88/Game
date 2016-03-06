@@ -7,8 +7,8 @@ import javax.imageio.ImageIO;
 
 public class SpriteSheet {
 
-	public static final SpriteSheet	SS_DEFAULT	= new SpriteSheet("/SS_Empty.png");
-
+	public static final SpriteSheet	SS_DEFAULT		= new SpriteSheet("/SS_Empty.png");
+	public static final SpriteSheet	FOREST_TILES	= new SpriteSheet("/Forest_Tiles.png");
 	private int						ss_Width;
 	private int						ss_Height;
 	BufferedImage					ss_img;
@@ -28,7 +28,7 @@ public class SpriteSheet {
 		}
 		this.ss_Width = ss_img.getWidth();
 		this.ss_Height = ss_img.getHeight();
-		this.ss_Pixels = new int[ss_img.getWidth() * ss_img.getHeight()];
+//		this.ss_Pixels = new int[ss_img.getWidth() * ss_img.getHeight()];
 		this.ss_Pixels = ss_img.getRGB(0, 0, ss_img.getWidth(), ss_img.getHeight(), null, 0, ss_img.getWidth());
 	}
 

@@ -39,7 +39,7 @@ public class Screen {
 		for (int i = 0; i < rendering_Pixels.length; i++) {
 			rendering_Pixels[i] = pixels[i];
 		}
-				resetArray(pixels);
+//		resetArray(pixels);
 	}
 
 	public void resetArray(int[] arrayToReset) {
