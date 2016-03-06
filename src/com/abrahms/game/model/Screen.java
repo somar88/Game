@@ -39,12 +39,34 @@ public class Screen {
 		for (int i = 0; i < rendering_Pixels.length; i++) {
 			rendering_Pixels[i] = pixels[i];
 		}
-//		resetArray(pixels);
+		//		resetArray(pixels);
 	}
 
 	public void resetArray(int[] arrayToReset) {
 		for (int i = 0; i < arrayToReset.length; i++) {
 			arrayToReset[i] = 0x000000;
 		}
+	}
+
+	public void print_Level(Level l, int camera_XPos, int camera_YPos) {
+
+		//		for (int x = 0; x < screen_width; x++) {
+		//			for (int y = 0; y < screen_height; y++) {
+		//				if (x >= (l.level_TWidth << 5) || x < 0) continue;
+		//				if (y >= (l.level_THeight << 5) || y < 0) continue;
+		//				pixels[x + (y * screen_width)] = l.level_Pixels[x + (y * screen_width)];
+		//			}
+		//
+		//		}
+
+		for (int x = 0; x < l.level_TWidth << 5; x++) {
+			for (int y = 0; y < l.level_THeight << 5; y++) {
+				if (x >= (screen_width) || x < 0) continue;
+				if (y >= (screen_height) || y < 0) continue;
+				pixels[x + (y * l.level_TWidth)] = l.level_Pixels[x + (y * l.level_TWidth)];
+			}
+
+		}
+
 	}
 }

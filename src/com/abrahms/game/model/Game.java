@@ -32,12 +32,15 @@ public class Game extends Canvas implements Runnable {
 	private int[]				rendering_Pixels;
 	private int					x;
 	private int					y;
+	private Level game_Level;
 
 	// Constructor 
 	public Game() {
 		Dimension size = new Dimension(WIDTH, HEIGHT);
 		setPreferredSize(size);
 		this.screen = new Screen(WIDTH, HEIGHT);
+		this.game_Level = new Level(4, 4);
+		this.screen.print_Level(game_Level, 0, 0);
 		this.img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		rendering_Pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 		for (int i = 0; i < rendering_Pixels.length; i++) {
