@@ -41,10 +41,7 @@ public class Game extends Canvas implements Runnable {
 		this.img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		rendering_Pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
 		for (int i = 0; i < rendering_Pixels.length; i++) {
-			if (i % 2 == 0) {
-				rendering_Pixels[i] = 0x000000;
-			} else if (i > rendering_Pixels.length - 102400) rendering_Pixels[i] = 0x000000;
-
+			rendering_Pixels[i] = 0x000000;
 		}
 	}
 
@@ -75,8 +72,8 @@ public class Game extends Canvas implements Runnable {
 		g = bs.getDrawGraphics();
 		// rendering Area 51 :P
 		////////////////////////////////////////////////////////////////////////////////////////////////
-		//		screen.renderScreen(rendering_Pixels);
-		Sprite.TEST_SPRITE.s_Render(rendering_Pixels, WIDTH);
+		screen.renderScreen(rendering_Pixels);
+		//		Sprite.TEST_SPRITE.s_Render(rendering_Pixels, WIDTH);
 		//		rendering_Pixels[20480] = 0xFFFFFF;
 		g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null);
 		//		System.out.println("testing");

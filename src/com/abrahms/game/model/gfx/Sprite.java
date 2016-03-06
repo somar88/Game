@@ -2,7 +2,7 @@ package com.abrahms.game.model.gfx;
 
 public class Sprite {
 
-	public static final Sprite	TEST_SPRITE	= new Sprite(SpriteSheet.FOREST_TILES, 32, 32, 0, 12);
+	public static final Sprite	TEST_SPRITE	= new Sprite(SpriteSheet.FOREST_TILES, 32, 32, 0, 0);
 
 	public int					s_Width;
 	public int					s_Height;
